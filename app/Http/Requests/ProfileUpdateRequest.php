@@ -22,7 +22,23 @@ class ProfileUpdateRequest extends FormRequest
                 'string',
                 'lowercase',
                 'max:255',
+                'min:6',
                 Rule::unique(User::class)->ignore($this->user()->id),
+            ],
+            'photo_path' => [
+                'nullable', 
+                'file',
+                'mimes:jpeg,png,jpg', 
+                'max:2048'
+            ], // Maksimal 2MB
+            'address' => [
+                'nullable', 
+                'string', 
+                'max:500'
+            ],
+            'gender' => [
+                'required', 
+                'boolean'
             ],
             'email' => [
                 'required',

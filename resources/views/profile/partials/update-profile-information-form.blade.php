@@ -13,16 +13,58 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
         @csrf
         @method('patch')
 
+        {{-- Profile Photo --}}
+        <div>
+            <x-input-label for="photo_path" :value="__('Profile Photo')" />
+            <!-- <x-text-input id="photo_path" name="photo_path" type="file" class="mt-1 block" /> -->
+            <input type="file" name="photo_path" class="mt-1 block w-full" />
+            <x-input-error class="mt-2" :messages="$errors->get('photo_path')" />
+        </div>
+
+        {{-- nama --}}
         <div>
             <x-input-label for="name" :value="__('Name')" />
             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
 
+        <div>
+            <x-input-label for="username" :value="__('Username')" />
+            <x-text-input id="username" name="username" type="text" class="mt-1 block w-full" :value="old('username', $user->username)" required autofocus autocomplete="username" />
+            <x-input-error class="mt-2" :messages="$errors->get('username')" />
+        </div>
+
+        {{-- Gender --}}
+        <div>
+            <x-input-label for="gender" :value="__('Gender')" />
+            <!-- <select id="gender" name="gender" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                <option value="" {{ old('gender', $user->gender) === null ? 'selected' : '' }}>{{ __('Pilih Gender') }}</option>
+                <option value="1" {{ old('gender', $user->gender) === 1 ? 'selected' : '' }}>{{ __('Laki-Laki') }}</option>
+                <option value="0" {{ old('gender', $user->gender) === 0 ? 'selected' : '' }}>{{ __('Perempuan') }}</option>
+            </select> -->
+            <div class="mt-1 block w-full"> 
+                <input {{ $user->gender ? 'checked' : '' }} type="radio" id="pria" name="gender" value="1"
+                <label for="pria" class="ms-2 text-sm text-gray-600
+                dark:text-gray-400">Laki-Laki</label>
+                <input {{ !$user->gender ? 'checked' : '' }} type="radio" id="wanita" name="gender" value="0"
+                <label for="wanita" class="ms-2 text-sm text-gray-600
+                dark:text-gray-400">Perempuan</label>
+            </div>
+            <x-input-error class="mt-2" :messages="$errors->get('gender')" />
+        </div>
+
+        {{-- Address --}}
+        <div>
+            <x-input-label for="address" :value="__('Full Address')" />
+            <textarea id="address" name="address" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" rows="3">{{ old('address', $user->address) }}</textarea>
+            <x-input-error class="mt-2" :messages="$errors->get('address')" />
+        </div>
+
+        {{-- Email --}}
         <div>
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
