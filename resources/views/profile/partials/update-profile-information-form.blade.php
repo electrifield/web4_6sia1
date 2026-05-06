@@ -90,6 +90,10 @@
         </div>
 
         <div class="flex items-center gap-4">
+
+            {{-- link download id card --}}
+            <a class="text-white" href="{{ route('profile.id.card') }}" target="_blank">Unduh ID Card</a>
+            
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 
             @if (session('status') === 'profile-updated')

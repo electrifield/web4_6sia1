@@ -15,6 +15,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // unduh id card user
+    Route::get('/profile/id-card', [ProfileController::class, 'downloadIdCard'])->name('profile.id.card');
 });
 
 require __DIR__.'/auth.php';
